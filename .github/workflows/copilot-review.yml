@@ -1,0 +1,21 @@
+name: Copilot Code Review Agent
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  copilot-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Copilot Review
+        uses: github/copilot-review@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
