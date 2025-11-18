@@ -1,79 +1,33 @@
-name: Example Workflow Template
+name: Copilot Test Agent
 
-# This is an example workflow file demonstrating best practices
-# for GitHub Actions workflows in this repository.
-# You can use this as a template for creating custom workflows.
-
-# Define when this workflow should run
-# Reference: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
 on:
-  # Allows manual triggering from the Actions tab
-  workflow_dispatch:
-  
-  # Triggers on push to specified branches
-  push:
-    branches:
-      - main
-      - 'feature/**'
-  
-  # Triggers on pull requests targeting main
   pull_request:
-    branches:
-      - main
+    types: [opened, synchronize]
 
-# Set permissions for GITHUB_TOKEN
-# Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
   contents: read
-  pull-requests: read
+  pull-requests: write
 
 jobs:
-  # Example job: Validate documentation
-  validate-docs:
-    name: Validate Documentation
+  copilot-tests:
     runs-on: ubuntu-latest
-    
-    steps:
-      # Step 1: Checkout the repository
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      
-      # Step 2: Check markdown files for broken links
-      - name: Check markdown links
-        run: |
-          echo "Checking for broken links in markdown files..."
-          # Add your validation logic here
-          find . -name "*.md" -type f | head -5
-      
-      # Step 3: Validate YAML syntax
-      - name: Validate workflow YAML
-        run: |
-          echo "Validating YAML syntax..."
-          # Example: could use yamllint or similar tools
-          ls -la .github/workflows/
 
-  # Example job: Run checks (conditional)
-  run-checks:
-    name: Run Quality Checks
-    runs-on: ubuntu-latest
-    # Only run on pull requests
-    if: github.event_name == 'pull_request'
-    
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
-      
-      - name: Check file structure
-        run: |
-          echo "Verifying repository structure..."
-          ls -la
-          
-      - name: Summary
-        run: |
-          echo "✅ All checks passed!"
-          echo "This is an example workflow demonstrating:"
-          echo "  - Proper workflow structure"
-          echo "  - Clear job and step naming"
-          echo "  - Conditional execution"
-          echo "  - Multiple trigger events"
-          echo "  - Security-conscious permissions"
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Tests
+        run: npm test --if-present
+
+      - name: Copilot Test Generator
+        uses: github/copilot-tests@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
