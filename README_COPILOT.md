@@ -6,46 +6,54 @@ This document provides instructions for GitHub Copilot and other automated assis
 
 Before committing any changes to this repository, ensure the following steps are completed:
 
-1. **Format your code**: Run `make fmt` to format all code according to the project's style guidelines
-2. **Build the project**: Run `make build` to ensure the project builds successfully
-3. **Run tests**: Run `make test` to verify all tests pass
+1. **Review your changes**: Use `git diff` to review all modifications
+2. **Check workflow files**: If modifying `.github/workflows/`, validate YAML syntax
+3. **Preview markdown**: Ensure README.md and other documentation renders correctly
+4. **Test tutorial flow**: Verify that changes don't break the learning experience
 
-These steps help maintain code quality and prevent breaking changes from being introduced.
+This repository uses GitHub Actions workflows (`.github/workflows/`) for automation. There are no build or test commands since this is a documentation-based tutorial repository.
 
 ## Guidance for Proposing Files/Changes
 
 When proposing new files or changes to this repository:
 
 ### File Creation
-- Place new files in the appropriate directory based on their purpose
-- Follow the existing naming conventions
-- Include proper file headers and documentation
-- Ensure new files are added to relevant build configurations
+- Place documentation files in the repository root
+- Place images in the `/images/` directory
+- Place workflow files in `.github/workflows/`
+- Follow existing naming conventions (kebab-case for workflows, UPPERCASE for special docs)
+- Include proper markdown headers and formatting
 
-### Code Changes
+### Documentation Changes
 - Make minimal, focused changes that address a single concern
-- Maintain consistency with existing code style
-- Add or update tests to cover new functionality
-- Update documentation to reflect changes
-- Consider backward compatibility
+- Maintain consistency with existing documentation style
+- Keep language simple and beginner-friendly
+- Update related documentation if needed
+- Verify markdown rendering and links
+
+### Workflow Changes
+- Validate YAML syntax before committing
+- Test changes thoroughly to avoid breaking the tutorial
+- Document what the workflow does and why changes were made
+- Consider backward compatibility with existing learner progress
 
 ### Pull Requests
 - Create descriptive PR titles that summarize the change
 - Include a detailed description explaining what changed and why
 - Reference any related issues
-- Add appropriate labels (e.g., `docs`, `bugfix`, `enhancement`)
+- Add appropriate labels (e.g., `docs`, `workflows`, `enhancement`)
 
 ## Minimal PR Checklist
 
 Before submitting a pull request, verify:
 
-- [ ] `make fmt` passes with no further changes
-- [ ] `make build` completes successfully
-- [ ] `make test` passes all tests
-- [ ] Code changes are minimal and focused
-- [ ] Documentation is updated if needed
+- [ ] Changes are minimal and focused
+- [ ] Markdown documentation renders correctly
+- [ ] Workflow YAML files are valid (if modified)
+- [ ] Tutorial steps flow logically
+- [ ] Images and links work properly
 - [ ] PR description clearly explains the changes
-- [ ] Appropriate labels are added
+- [ ] Appropriate labels are added (e.g., `docs`, `workflows`)
 - [ ] Reviewers are assigned
 
 ## Examples of Good Prompts
@@ -54,71 +62,75 @@ When working with GitHub Copilot or other AI assistants, use clear and specific 
 
 ### Good Examples
 
-1. **Adding a new feature**:
+1. **Updating documentation**:
    ```
-   "Add a function to validate email addresses using regex. Include unit tests."
-   ```
-
-2. **Refactoring code**:
-   ```
-   "Refactor the getUserData function to use async/await instead of callbacks."
+   "Update README.md step 2 to clarify branch creation instructions."
    ```
 
-3. **Documentation**:
+2. **Modifying workflows**:
    ```
-   "Add JSDoc comments to all public methods in the UserService class."
+   "Add a new workflow validation step to check YAML syntax in .github/workflows/."
    ```
 
-4. **Bug fixes**:
+3. **Improving tutorial content**:
    ```
-   "Fix the off-by-one error in the pagination logic on line 45 of utils.js."
+   "Add a new section to explain pull request reviews in simple terms for beginners."
+   ```
+
+4. **Fixing broken links**:
+   ```
+   "Fix the broken image link in README.md line 45 that points to /images/example.png."
    ```
 
 ### Poor Examples (Avoid)
 
 1. **Too vague**:
    ```
-   "Make the code better."
+   "Make the tutorial better."
    ```
 
 2. **Too broad**:
    ```
-   "Rewrite the entire application using a different framework."
+   "Rewrite all the documentation using different examples."
    ```
 
 3. **Unclear intent**:
    ```
-   "Fix the thing that's broken."
+   "Fix the workflow that's broken."
    ```
 
 ## Best Practices
 
 ### When Using Copilot
 - Write clear comments describing what you want to accomplish
-- Review and test all generated code before committing
+- Review all generated content before committing
 - Don't blindly accept suggestions - understand what they do
 - Use Copilot to accelerate, not replace, your thinking
 
-### Code Quality
-- Prioritize readability over cleverness
-- Keep functions small and focused
-- Use meaningful variable and function names
-- Add comments for complex logic, not obvious code
+### Documentation Quality
+- Prioritize clarity and simplicity for beginners
+- Use proper markdown formatting
+- Include screenshots and examples where helpful
+- Keep language accessible and jargon-free
 
-### Testing
-- Write tests before or alongside new code
-- Aim for meaningful test coverage, not just high percentages
-- Test edge cases and error conditions
-- Keep tests independent and reproducible
+### Workflow Modifications
+- Validate YAML syntax before committing
+- Test workflow changes in a fork first if possible
+- Document any changes to workflow behavior
+- Consider impact on learner experience
 
 ## Repository-Specific Notes
 
 This is a GitHub Skills repository designed to teach GitHub fundamentals. When making changes:
 
-- Preserve the educational structure and flow
-- Maintain consistency with GitHub's documentation style
-- Keep examples simple and easy to understand
-- Ensure changes don't break the learning experience
+- **Tutorial Structure**: This repository uses GitHub Actions workflows in `.github/workflows/` to guide learners through steps
+- **No Build Process**: This is a documentation-only repository with no code to compile or test
+- **Workflow Files**: Changes to `.github/workflows/*.yml` should be carefully validated for YAML syntax
+- **Step Files**: The `.github/steps/` directory contains step metadata used by workflows
+- **Educational Focus**: Preserve the educational structure and flow
+- **Documentation Style**: Maintain consistency with GitHub's documentation style
+- **Simple Examples**: Keep examples simple and easy to understand for beginners
+- **Learning Experience**: Ensure changes don't break the tutorial flow or confuse learners
 
 ## Getting Help
 
