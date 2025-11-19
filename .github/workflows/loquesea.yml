@@ -1,4 +1,4 @@
-name: Copilot Test Agent
+name: Copilot Security Agent
 
 on:
   pull_request:
@@ -6,28 +6,17 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write
+  security-events: write
+  actions: read
 
 jobs:
-  copilot-tests:
+  copilot-security:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Run Tests
-        run: npm test --if-present
-
-      - name: Copilot Test Generator
-        uses: github/copilot-tests@v1
+      - name: Security Scan
+        uses: github/copilot-security@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
