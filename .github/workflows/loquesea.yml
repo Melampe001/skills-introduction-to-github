@@ -1,0 +1,20 @@
+name: Copilot Merge Assistant
+
+on:
+  pull_request:
+    types: [opened, synchronize, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  copilot-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Copilot Merge Agent
+        uses: github/copilot-merge@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
